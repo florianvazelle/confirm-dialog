@@ -1,0 +1,21 @@
+import { StandardButton } from "std-widgets.slint";
+
+export component ConfirmDialog inherits Dialog {
+    width: 400px;
+    height: 100px;
+
+    popup := PopupWindow {
+        Rectangle { height:100%; width: 100%; background: yellow; }
+        x: 20px; y: 20px; height: 50px; width: 50px;
+    }
+    
+    in-out property <int> remaining_time;
+
+    Text {
+        text: "Do you want to continue?\nAuto-confirming in \{root.remaining_time} seconds...";
+        horizontal-alignment: center;
+    }
+
+    StandardButton { kind: ok; }
+    StandardButton { kind: cancel; }
+}
