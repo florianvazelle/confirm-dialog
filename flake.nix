@@ -40,7 +40,7 @@
         craneLib = (crane.mkLib pkgs).overrideToolchain (p: toolchain);
         src = craneLib.cleanCargoSource ./.;
 
-      in {
+      in rec {
         defaultPackage = with pkgs; craneLib.buildPackage {
           src = ./.;
           nativeBuildInputs = [
@@ -63,6 +63,10 @@
           LD_LIBRARY_PATH = "${lib.makeLibraryPath [ kdePackages.full ]}";
           RUST_SRC_PATH = rustPlatform.rustLibSrc;
           RUSTFLAGS = "-Awarnings";
+        };
+
+        overlays.default = final: prev: {
+          confirm-dialog = defaultPackage;
         };
       }
     );
